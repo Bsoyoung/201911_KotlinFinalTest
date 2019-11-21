@@ -12,6 +12,7 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
         setupEvent()
         setValues()
+
     }
 
     override fun setupEvent() {
