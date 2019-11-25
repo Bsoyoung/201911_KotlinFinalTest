@@ -1,5 +1,6 @@
 package com.example.a201911_kotlinfinaltest
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.widget.TextView
@@ -26,7 +27,10 @@ class LottoActivity : BaseActivity() {
     var fifthRankCount=0
     var wrongCount=0
 
+    //정석 당첨번호 6개 저장 배열
     var lottoNumArrayList = ArrayList<Int>()
+    //보너스 번호
+    var bonusNUm = 0
     var thisWeekLottoNumTextViewArrayList = ArrayList<TextView>()
 
     var myNumArrayList = ArrayList<Int>()
@@ -103,13 +107,12 @@ class LottoActivity : BaseActivity() {
         }
 
         luckyMoneyTxt.text = String.format("누적 당첨 금액 : %,d원",luckyMoney)
-
-        firstRankCountTxt.text = String.format("1등 당첨 : %.d회",firstRankCount)
-        secondRankCountTxt.text = String.format("2등 당첨 : %.d회",secondRankCount)
-        thirdRankCountTxt.text = String.format("3등 당첨 : %.d회",thirdRankCount)
-        fourthRankCountTxt.text = String.format("4등 당첨 : %.d회",fourthRankCount)
-        fifthRankCountTxt.text = String.format("5등 당첨 : %.d회",fifthRankCount)
-        wrongRankCountTxt.text = String.format("낙첨 : %.d회",wrongCount)
+        firstRankCountTxt.text = String.format("1등 당첨 : %,d회", firstRankCount)
+        secondRankCountTxt.text = String.format("2등 당첨 : %,d회", secondRankCount)
+        thirdRankCountTxt.text = String.format("3등 당첨 : %,d회", thirdRankCount)
+        fourthRankCountTxt.text = String.format("4등 당첨 : %,d회", fourthRankCount)
+        fifthRankCountTxt.text = String.format("5등 당첨 : %,d회", fifthRankCount)
+        wrongCountTxt.text = String.format("낙첨 횟수 : %,d회", wrongCount)
 
     }
 
@@ -182,6 +185,25 @@ class LottoActivity : BaseActivity() {
 
         //당첨 번호 6개를 작은 숫자부터 큰 숫자 순서대로 (정렬)!
         Collections.sort(lottoNumArrayList)
+        //보너스 번호를 추가로 뽑자. 중복을 피해야함. => 몇번이나 뽑아야 중복이 아닐지 알 수 없다.
+
+        while(true){
+            var tempRandomNum = (Math.random()*45+1).toInt()
+            var isDupIsOk = true
+            for(num in lottoNumArrayList){
+                if(tempRandomNum == num){
+                    //중복발견! 다시 뽑아야함.
+                    isDupIsOk = false
+                    break
+                }
+            }
+            if(isDupIsOk) {
+                bonusNUm = tempRandomNum
+                break
+            }
+
+
+        }
 
         //6개의 텍스트뷰 / 당첨번호를 뽑아내서 연결
         for(i in 0 .. lottoNumArrayList.size -1){
@@ -190,6 +212,8 @@ class LottoActivity : BaseActivity() {
 
             numTxt.text = number.toString()
         }
+
+        bonusNumTxt.text = bonusNUm.toString()
 
 
 
