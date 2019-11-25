@@ -67,7 +67,9 @@ class LottoActivity : BaseActivity() {
 
     fun checkLottoRank(){
         //6개 : 1등 => 20억원
-        //5개 : 3등 => 150만원
+        //5개
+        //   보너스 번호가 맞으면 : 2등 => 6500만원
+        //   보너스 번호 못맞추면 : 3등 => 150만원,
         //4개 : 4등 => 5만원
         //3개 : 5등 => 5천원
 
@@ -89,8 +91,27 @@ class LottoActivity : BaseActivity() {
             firstRankCount++
 //            Toast.makeText(mContext,"1등 당첨!",Toast.LENGTH_SHORT).show()
         }else if(correctCount == 5){
-            luckyMoney+=1500000
-            thirdRankCount++
+
+            var isSecondRank = false
+            for(num in myNumArrayList)
+            {
+                if(num== bonusNUm)
+                {
+                    isSecondRank = true
+                    break
+                }
+            }
+
+            if(isSecondRank)
+            {
+                luckyMoney+=65000000
+                secondRankCount++
+            }else
+            {
+                luckyMoney+=1500000
+                thirdRankCount++
+            }
+
 //            Toast.makeText(mContext,"3등 당첨!",Toast.LENGTH_SHORT).show()
         }else if(correctCount == 4){
             luckyMoney+=50000
