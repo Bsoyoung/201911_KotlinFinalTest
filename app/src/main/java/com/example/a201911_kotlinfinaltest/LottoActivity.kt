@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.lotto.*
+import java.sql.Time
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -28,6 +29,30 @@ class LottoActivity : BaseActivity() {
     }
 
     override fun setupEvent() {
+
+        autoLottoBtn.setOnClickListener {
+
+            while(true){
+
+                //숫자를 랜덤으로 6개 생성. 1~45 / 중복안됨.
+                setThisWeekLottoNum()
+                checkLottoRank()
+
+                usedMoney+=1000
+                usedMoneyTxt.text = String.format(" 사용금액 : %,d원",usedMoney)
+
+
+
+                if(usedMoney>=1000000000){
+                    break
+                }
+
+                Thread.sleep(1000)
+
+            }
+
+        }
+
 
         buyOneLottoBtn.setOnClickListener {
 
