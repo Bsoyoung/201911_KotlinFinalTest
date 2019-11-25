@@ -18,6 +18,14 @@ class LottoActivity : BaseActivity() {
     //누적 당첨금액
     var luckyMoney = 0L
 
+    //1~5등 당첨 횟수
+    var firstRankCount=0
+    var secondRankCount=0
+    var thirdRankCount=0
+    var fourthRankCount=0
+    var fifthRankCount=0
+    var wrongCount=0
+
     var lottoNumArrayList = ArrayList<Int>()
     var thisWeekLottoNumTextViewArrayList = ArrayList<TextView>()
 
@@ -74,23 +82,34 @@ class LottoActivity : BaseActivity() {
 
         if(correctCount==6){
             luckyMoney+=2000000000
+            firstRankCount++
 //            Toast.makeText(mContext,"1등 당첨!",Toast.LENGTH_SHORT).show()
         }else if(correctCount == 5){
             luckyMoney+=1500000
-
+            thirdRankCount++
 //            Toast.makeText(mContext,"3등 당첨!",Toast.LENGTH_SHORT).show()
         }else if(correctCount == 4){
             luckyMoney+=50000
+            fourthRankCount++
 //            Toast.makeText(mContext,"4등 당첨!",Toast.LENGTH_SHORT).show()
         }else if(correctCount == 3){
-            luckyMoney+=5000
+            luckyMoney-=5000
+            fifthRankCount++
 //            Toast.makeText(mContext,"5등 당첨!",Toast.LENGTH_SHORT).show()
         }else{
             luckyMoney+=0
+            wrongCount++
            // Toast.makeText(mContext,"꽝입니다!",Toast.LENGTH_SHORT).show()
         }
 
         luckyMoneyTxt.text = String.format("누적 당첨 금액 : %,d원",luckyMoney)
+
+        firstRankCountTxt.text = String.format("1등 당첨 : %.d회",firstRankCount)
+        secondRankCountTxt.text = String.format("2등 당첨 : %.d회",secondRankCount)
+        thirdRankCountTxt.text = String.format("3등 당첨 : %.d회",thirdRankCount)
+        fourthRankCountTxt.text = String.format("4등 당첨 : %.d회",fourthRankCount)
+        fifthRankCountTxt.text = String.format("5등 당첨 : %.d회",fifthRankCount)
+        wrongRankCountTxt.text = String.format("낙첨 : %.d회",wrongCount)
 
     }
 
