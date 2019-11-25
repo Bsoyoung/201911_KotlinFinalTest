@@ -2,6 +2,7 @@ package com.example.a201911_kotlinfinaltest
 
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.lotto.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -41,7 +42,29 @@ class LottoActivity : BaseActivity() {
         //3개 : 5등 => 5천원
 
         //그 이하 : 꽝. => 0원
+        
+        var correctCount = 0
 
+        for(myNum in myNumArrayList){
+            for(thisWeekNum in lottoNumArrayList){
+                if(thisWeekNum == myNum){
+                    correctCount++
+                }
+
+            }
+        }
+
+        if(correctCount==6){
+            Toast.makeText(mContext,"1등 당첨!",Toast.LENGTH_SHORT).show()
+        }else if(correctCount == 5){
+            Toast.makeText(mContext,"3등 당첨!",Toast.LENGTH_SHORT).show()
+        }else if(correctCount == 4){
+            Toast.makeText(mContext,"4등 당첨!",Toast.LENGTH_SHORT).show()
+        }else if(correctCount == 3){
+            Toast.makeText(mContext,"5등 당첨!",Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(mContext,"꽝입니다!",Toast.LENGTH_SHORT).show()
+        }
 
     }
 
