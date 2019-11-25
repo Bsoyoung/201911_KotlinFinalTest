@@ -13,7 +13,7 @@ import kotlin.collections.ArrayList
 class LottoActivity : BaseActivity() {
 
     var mHandler = Handler()
-
+    var isNowBuying = false
     //누적 사용금액
     var usedMoney = 0L
     //누적 당첨금액
@@ -46,7 +46,17 @@ class LottoActivity : BaseActivity() {
     override fun setupEvent() {
 
         autoLottoBtn.setOnClickListener {
-            doLottoLoop()
+
+            if(!isNowBuying){
+                doLottoLoop()
+                isNowBuying = true
+                autoLottoBtn.text = "구매 중단"
+            }else{
+                //반복 중단시키기
+                stopLottoLoop()
+                isNowBuying=false
+                autoLottoBtn.text="자동 구매 재개"
+            }
 
         }
 
@@ -118,7 +128,7 @@ class LottoActivity : BaseActivity() {
             fourthRankCount++
 //            Toast.makeText(mContext,"4등 당첨!",Toast.LENGTH_SHORT).show()
         }else if(correctCount == 3){
-            luckyMoney-=5000
+            usedMoney-=5000
             fifthRankCount++
 //            Toast.makeText(mContext,"5등 당첨!",Toast.LENGTH_SHORT).show()
         }else{
@@ -137,8 +147,8 @@ class LottoActivity : BaseActivity() {
 
     }
 
-    fun doLottoLoop(){
-        mHandler.post {
+    var LottoRunnable = object : Runnable{
+        override fun run() {
             if(usedMoney<100000000){
 
                 //숫자를 랜덤으로 6개 생성. 1~45 / 중복안됨.
@@ -155,6 +165,16 @@ class LottoActivity : BaseActivity() {
                 }
             }
         }
+
+    }
+
+    fun doLottoLoop(){
+        mHandler.post (LottoRunnable)
+
+    }
+
+    fun stopLottoLoop(){
+        mHandler.removeCallbacks(LottoRunnable)
     }
 
 
