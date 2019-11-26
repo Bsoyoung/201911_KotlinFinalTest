@@ -17,6 +17,7 @@
 
 
     <Button
+        android:id="@+id/gologinPageBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="로그인 / 회원가입 / 공지사항 출력(응용 문제)"/>
