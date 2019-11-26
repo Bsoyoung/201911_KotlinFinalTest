@@ -31,6 +31,41 @@ class ContextUtil {
         }
 
 
+        fun setId(context:Context,user_id:String){
+
+            val pref = context.getSharedPreferences(prefName,Context.MODE_PRIVATE)
+            pref.edit().putString(USER_ID,"").apply()
+        }
+
+        fun getId(context:Context):String{
+            val pref= context.getSharedPreferences(prefName,Context.MODE_PRIVATE)
+            return pref.getString(USER_ID,"")!!;
+        }
+
+
+        fun setPw(context:Context,user_id:String){
+
+            val pref = context.getSharedPreferences(prefName,Context.MODE_PRIVATE)
+            pref.edit().putString(USER_PW,"").apply()
+        }
+
+        fun getPw(context:Context):String{
+            val pref= context.getSharedPreferences(prefName,Context.MODE_PRIVATE)
+            return pref.getString(USER_PW,"")!!;
+        }
+
+        fun setUserToken(context:Context, userToken:String) {
+
+            var pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            pref.edit().putString(USER_TOKEN, userToken).apply()
+        }
+
+        fun getUserToken(context: Context) : String {
+
+            var pref = context.getSharedPreferences(prefName, Context.MODE_PRIVATE)
+            return pref.getString(USER_TOKEN, "")!!
+
+        }
 
     }
 

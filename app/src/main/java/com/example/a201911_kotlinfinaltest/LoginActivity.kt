@@ -1,5 +1,6 @@
 package com.example.a201911_kotlinfinaltest
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,11 +23,24 @@ class LoginActivity : BaseActivity() {
             ContextUtil.setSavedIdChecked(mContext,isChecked)
         }
 
+        loginBtn.setOnClickListener {
+
+
+            ContextUtil.setId(mContext,idEdt.text.toString())
+            ContextUtil.setPw(mContext,pwEdt.text.toString())
+
+        }
+
+
     }
 
     override fun setValues() {
         savedIdCheckBox.isChecked = ContextUtil.getSavedIdChecked(mContext)
 
+        if(savedIdCheckBox.isChecked){
+            idEdt.setText(ContextUtil.getId(mContext))
+            pwEdt.setText(ContextUtil.getPw(mContext))
+        }
 
     }
 
