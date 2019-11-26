@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.example.a201911_kotlinfinaltest.utils.ContextUtil
 import com.example.a201911_kotlinfinaltest.utils.ServerUtil
 import kotlinx.android.synthetic.main.activity_login.*
@@ -34,10 +35,11 @@ class LoginActivity : BaseActivity() {
                 override fun onResponse(json: JSONObject) {
                     val code = json.getInt("code")
 
+                    Log.d("결과",code.toString())
                     if(code == 200){
 
-                        ContextUtil.setId(mContext,idEdt.text.toString())
-                        ContextUtil.setPw(mContext,pwEdt.text.toString())
+                        ContextUtil.setId(mContext,userId)
+                        ContextUtil.setPw(mContext,userPw)
 
                     }
 
