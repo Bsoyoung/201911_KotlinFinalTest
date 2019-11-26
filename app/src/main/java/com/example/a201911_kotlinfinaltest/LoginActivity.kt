@@ -49,6 +49,12 @@ class LoginActivity : BaseActivity() {
 
                         val userData = UserData.getUserDataFromJsonObject(user)
 
+                        if(savedIdCheckBox.isChecked){
+                            ContextUtil.setId(mContext,userId)
+                            ContextUtil.setPw(mContext,userPw)
+                        }
+
+
                         val intent = Intent(mContext,BoardActivity::class.java)
                         startActivity(intent)
                     }
@@ -80,10 +86,8 @@ class LoginActivity : BaseActivity() {
     override fun setValues() {
         savedIdCheckBox.isChecked = ContextUtil.getSavedIdChecked(mContext)
 
-        if(savedIdCheckBox.isChecked){
-            idEdt.setText(ContextUtil.getId(mContext))
-            pwEdt.setText(ContextUtil.getPw(mContext))
-        }
+        idEdt.setText(ContextUtil.getId(mContext))
+        pwEdt.setText(ContextUtil.getPw(mContext))
 
     }
 
